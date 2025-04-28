@@ -149,7 +149,7 @@
 }
 /* Estilo general */
 body {
-  background-color: #727679; /
+  background-color: #727679; 
   font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #434343;
   margin: 0;
@@ -276,3 +276,10 @@ table button:hover {
   background-color: #00ffc3;
 }
 
+/* Estilo para los labels */
+label {
+    display: block;               /* Hace que el label ocupe toda la línea */
+    text-align: left;             /* Alineación del texto a la izquierda */
+    font-size: 0.85em;            /* Hace el texto del label más pequeño */
+    margin-bottom: 5px;           /* Espacio entre el label y el campo de entrada */
+}
