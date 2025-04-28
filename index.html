@@ -1,4 +1,4 @@
-<!DOCTYPE <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
    <head>
        <!-- Configuración de caracteres y responsividad -->
@@ -7,10 +7,11 @@
        <title></title>
        <meta name="description" content="">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <!-- Título de la Página -->
-       <title>Gestión Universidad de Nariño</title>   
+   
+       <link rel="stylesheet" href="estilos.css">
 
-       <link rel="stylesheet" href="style.css">
+
+       <link rel="stylesheet" href="estilos.css">
    </head>
    <body>
            
@@ -40,8 +41,6 @@
 
                        <div class="login-footer">
                            <p>¿No tienes cuenta? <a href="#" id = "show-register">Regístrate</a></p>
-                           <a href="#" class="admin-btn">ADMINISTRADOR</a>
-                           <a href="#" class="admin-btn">CLIENTE</a>
                        </div>
 
                    </form>
@@ -72,5 +71,46 @@
            </div>
 
        </section>
+
+       <script>
+        document.getElementById ('show-register').addEventListener('click', function(e){
+            e.preventDefault();
+            document.querySelector('.form-login').style.display = 'none';
+            document.querySelector('.form-register').style.display = 'block';
+        console.log('Formulario de registro visible');
+        });
+
+        document.getElementById('show-login').addEventListener('click', function(e){
+            e.preventDefault();
+            document.querySelector('.form-login').style.display = 'block';
+            document.querySelector('.form-register').style.display = 'none';
+
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const showRegister = document.getElementById('show-register');
+            const showLogin = document.getElementById('show-login');
+            const loginForm = document.querySelector('.form-login');
+            const registerForm = document.querySelector('.form-register');
+
+            showRegister.addEventListener('click', function (e) {
+                e.preventDefault();
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                console.log('Formulario de registro visible');
+
+            });
+            showLogin.addEventListener('click', function (e) {
+                e.preventDefault();
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+                console.log('Formulario de login visible');
+
+            });
+
+        });
+       </script>
+
+
     </body>
     </html>
