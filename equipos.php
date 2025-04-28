@@ -18,7 +18,9 @@
 <main>
     <section class="add-equipo">
         <h2>Agregar Nuevo Equipo</h2>
-        <form id="form-agregar-equipo">
+        <!-- <form id="form-agregar-equipo">-->
+        <form action="guardar_equipo.php" method="POST"> <!-- agregar action y method -->
+
             <input type="text" name="codigo_inventario" placeholder="Código Inventario" required>
             <input type="text" name="nombre_equipo" placeholder="Nombre del Equipo" required>
             <input type="text" name="ubicacion" placeholder="Ubicación" required>
