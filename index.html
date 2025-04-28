@@ -1,0 +1,76 @@
+<!DOCTYPE <!DOCTYPE html>
+<html lang="es">
+   <head>
+       <!-- Configuración de caracteres y responsividad -->
+       <meta charset="utf-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <title></title>
+       <meta name="description" content="">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <!-- Título de la Página -->
+       <title>Gestión Universidad de Nariño</title>   
+
+       <link rel="stylesheet" href="style.css">
+   </head>
+   <body>
+           
+       
+   <main>
+       
+       <!-- login -->
+       <section class = "Login-section" id="Login">
+           <div class = "login-container">
+               <div class = "login-image">
+                   <img src="imagenes/img_login.png" alt="Imagen de login">
+               </div>
+               
+
+               <!----formulario de INICIAR SESION-->
+               <div class = "login-form form-login">
+                   <h2>Bienvenido!</h2>
+                   <form action="/login" method="POST">    
+                       <input type="text" placeholder="Usuario" name="usuario" required>
+                       <input type="password" placeholder="Contraseña" name="password" required>
+                       <button type="submit" class="login-btn">Iniciar Sesión</button>
+                       <div class="login-options">
+                           <label>
+                               <input type="checkbox" name="remember">Recuérdame </label>
+                               <a href="#">¿Olvidaste tu contraseña?</a>
+                       </div>
+
+                       <div class="login-footer">
+                           <p>¿No tienes cuenta? <a href="#" id = "show-register">Regístrate</a></p>
+                           <a href="#" class="admin-btn">ADMINISTRADOR</a>
+                           <a href="#" class="admin-btn">CLIENTE</a>
+                       </div>
+
+                   </form>
+               </div>
+               <!-- Registrarse-->
+               <div class="login-form form-register hidden">
+                   <h2> Crear cuenta</h2>
+                   <form action="/register" method="POST">
+                       <input type="text" placeholder="Nombres" name = "nombre" required>
+                       <input type="text" placeholder="Apellidos" name = "apellidos" required>
+                       <input type="text" placeholder="Cédula" name = "cedula" required>
+                       <input type = "text" placeholder="Correo Electrónico" name="correo" required>
+                       <input type="text" placeholder="Telefono" name = "telefono" required>
+                       <input type="text" placeholder="Dirección" name = "direccion" required>
+                       <input type="text" placeholder="Fecha de Nacimiento" name = "fechNac" required>
+                       <input type="text" placeholder="Elija su rol: admin/cliente" name = "rol" required>
+                       <input type="text" placeholder="Usuario" name="usuario" required>
+                       <input type="password" placeholder="Contraseña" name="password" required>
+                       <button type="submit" class = "login-btn" style = "background-color: green;">Registrarse</button>
+
+                       <div class="login-footer">
+                           <p> ¿Ya tienes cuenta? <a href="#" id="show-login">Iniciar Sesión</a> </p>
+                       </div>
+                   </form>
+
+               </div>
+
+           </div>
+
+       </section>
+    </body>
+    </html>
