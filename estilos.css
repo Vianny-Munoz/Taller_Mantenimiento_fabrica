@@ -13,9 +13,6 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-    /*width: 80vw; /* 80% del ancho de la ventana 
-    height: 60vh; * 60% de la altura de la ventana 
-    margin: auto; * Centra el contenedor en la pantalla */
   }
   
   .login-image {
@@ -55,8 +52,8 @@
   
   .login-form input {
     width: 80%;
-    padding: 12px;
-    margin-bottom: 15px;
+    padding: 8px;
+    margin-bottom: 8px;
     border-radius: 20px;
     border: 1px solid #ccc;
   }
@@ -71,11 +68,7 @@
     cursor: pointer;
     font-size: 1em;
   }
-  
-  .login-btn:hover {
-    background-color: #2f4cc8;
-  }
-  
+    
   .login-options {
     display: flex;
     justify-content: space-between;
@@ -88,35 +81,16 @@
     color: #3b5de7;
     text-decoration: none;
   }
-  
-  .login-footer {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .login-footer p {
-    margin-bottom: 10px;
-  }
-  
-  .admin-btn {
-    display: inline-block;
-    background: #eef0f4;
-    padding: 8px 16px;
-    border-radius: 4px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-  }
+
   .hidden {
     display: none !important;
   }
 
   .form-register input {
     width: 80%;
-    padding: 5px;
+    padding: 8px;
     margin-bottom: 6px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
+    border-radius: 12px;
   }
   /* --- LOGIN SECTION --- */
 .form-register {
@@ -149,7 +123,7 @@
 }
 /* Estilo general */
 body {
-  background-color: #727679; 
+  background-color: rgb(176, 182, 236);
   font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #434343;
   margin: 0;
@@ -167,12 +141,12 @@ header {
 header h1 {
   margin: 0;
   font-size: 2.5em;
-  color: #00ffc3;
+  color: #5d20cf;
   letter-spacing: 2px;
 }
 
 header nav a {
-  color: #00ffc3;
+  color: #5d20cf;
   margin-left: 20px;
   text-decoration: none;
   font-weight: bold;
@@ -204,13 +178,13 @@ form {
 }
 
 form input, form select {
-  width: 90%;
+  width: 80%;
   padding: 12px;
-  margin: 10px 0;
-  background: #909090;
-  border: 1px solid #00ffc3;
-  color: #ffffff;
-  border-radius: 8px;
+  margin: 5px 0;
+  background: #f0ecec;
+  border: 1px solid#269dbb;;
+  color: #2e2a2a;
+  border-radius: 12px;
 }
 
 form input::placeholder {
@@ -218,7 +192,7 @@ form input::placeholder {
 }
 
 button.login-btn {
-  background-color: #00ffc3;
+  background-color:#5943bd;;
   color: #000000;
   border: none;
   padding: 12px 24px;
@@ -229,27 +203,29 @@ button.login-btn {
 }
 
 button.login-btn:hover {
-  background-color: #00ffc3;
+  background-color: #5943bd;;
 }
 
 /* Tabla de equipos */
 table {
   width: 100%;
   border-collapse: collapse;
+  align-items: center;
   margin-top: 20px;
 }
 
 th, td {
-  padding: 15px;
+  padding: 10px;
+  /*text-align: center;*/
   text-align: center;
-  border-bottom: 1px solid #2c2c2c;
+  border-bottom: 1px solid #7e6b6b;
 }
 
 th {
-  background: #00ffc3;
+  background:#5943bd;;
   color: #000;
   font-weight: bold;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
 }
 
 td {
@@ -263,7 +239,7 @@ tr:hover {
 
 /* Botones de acciones en tabla */
 table button {
-  background-color: #00ffc3;
+  background-color: #5943bd;;
   color: #000;
   border: none;
   padding: 6px 12px;
@@ -273,13 +249,12 @@ table button {
 }
 
 table button:hover {
-  background-color: #00ffc3;
+  background-color: #3700ff;
 }
 
 /* Estilo para los labels */
-label {
-    display: block;               /* Hace que el label ocupe toda la línea */
-    text-align: left;             /* Alineación del texto a la izquierda */
-    font-size: 0.85em;            /* Hace el texto del label más pequeño */
-    margin-bottom: 5px;           /* Espacio entre el label y el campo de entrada */
+label {            
+    text-align: left;             
+    font-size: 0.8em;            
+    margin-bottom: 3px;           
 }
