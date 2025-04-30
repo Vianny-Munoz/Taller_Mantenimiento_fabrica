@@ -12,9 +12,15 @@ $sql = "INSERT INTO incidencias (codigo_inventario, cedula_tecnico, fecha_incide
         VALUES ('$codigo_inventario', '$cedula_tecnico', '$fecha_incidencia', '$tipo_mantenimiento', '$fecha_reparacion')";
 
 if (mysqli_query($conexion, $sql)) {
-    echo "Incidencia registrada exitosamente.";
+    // echo "Incidencia registrada exitosamente.";
+        // Redirigir a la página incidencias.php con un mensaje de éxito
+        header("Location: incidencias.php?mensaje=Incidencia registrada exitosamente");
+        exit();
+    
 } else {
-    echo "Error: " . mysqli_error($conexion);
+        // Redirigir a la página incidencias.php con un mensaje de error
+        header("Location: incidencias.php?mensaje=Error al registrar incidencia");
+        exit();
 }
 
 mysqli_close($conexion);
