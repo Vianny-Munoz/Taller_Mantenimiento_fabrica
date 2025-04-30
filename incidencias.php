@@ -1,3 +1,12 @@
+<?php
+// Incluir el archivo de conexión
+include 'ConexionDB/conexion.php';
+
+// Realizar la consulta para obtener las incidencias
+$query = "SELECT * FROM incidencias";
+$result = mysqli_query($conexion, $query);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,6 +22,14 @@
     }
     section h2 {
       color: #003d80;
+    }
+    .mensaje {
+      color: green;
+      font-weight: bold;
+    }
+    .error {
+      color: red;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -48,19 +65,42 @@
 
     <section class="lista-incidencias">
         <h2>Lista de Incidencias</h2>
+        <?php
+        // Mostrar mensaje de confirmación o error
+        if (isset($_GET['mensaje'])) {
+            $mensaje = $_GET['mensaje'];
+            if (strpos($mensaje, 'exitosamente') !== false) {
+                echo "<p class='mensaje'>$mensaje</p>";
+            } else {
+                echo "<p class='error'>$mensaje</p>";
+            }
+        }
+        ?>
+
         <table>
             <thead>
                 <tr>
                     <th>Código del Equipo</th>
                     <th>Cédula Tecnico</th>
-                    <!-- <th>Ubicación o area de la empresa</th> -->
                     <th>Fecha de ingreso</th>
                     <th>Tipo de Mantenimiento</th>
                     <th>Fecha de entrega del equipo</th>
                 </tr>
             </thead>
             <tbody id="tabla-incidencias">
-                <!-- Aquí se cargan incidencias -->
+                <?php
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>
+                            <td>{$row['codigo_inventario']}</td>
+                            <td>{$row['cedula_tecnico']}</td>
+                            <td>{$row['fecha_incidencia']}</td>
+                            <td>{$row['tipo_mantenimiento']}</td>
+                            <td>{$row['fecha_reparacion']}</td>
+                          </tr>";
+                }
+
+                ?>
+
             </tbody>
         </table>
 
