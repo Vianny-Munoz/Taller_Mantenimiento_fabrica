@@ -4,8 +4,5 @@
             echo "Error de conexion: " . mysqli_connect_error();
             exit();
         }
-        else{
-            echo "Conectado a la base de datos";
-        }
 
 ?>
