@@ -1,3 +1,12 @@
+<?php
+// Incluir el archivo de conexión
+include 'ConexionDB/conexion.php';
+
+// Realizar la consulta para obtener las incidencias
+$query = "SELECT * FROM incidencias";
+$result = mysqli_query($conexion, $query);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,6 +22,14 @@
     }
     section h2 {
       color: #003d80;
+    }
+    .mensaje {
+      color: green;
+      font-weight: bold;
+    }
+    .error {
+      color: red;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -34,7 +51,8 @@
             <input type="text" name="cedula_tecnico" placeholder="Cedula Tecnico que hará mantenimiento" required>
             <!-- <input type="text" name="ubicacion" placeholder="Ubicación o area de la empresa" required> -->
             <label for="fecha_incidencia_lbl">Fecha de incidencia o ingreso del equipo:</label>
-            <input type="date" name="fecha_incidencia" required>   
+            <input type="date" name="fecha_incidencia" required max="<?php echo date('Y-m-d'); ?>">   
+
             <select name="tipo_mantenimiento" required>
                 <option value="preventivo">Preventivo</option>
                 <option value="correctivo">Correctivo</option>
@@ -48,19 +66,42 @@
 
     <section class="lista-incidencias">
         <h2>Lista de Incidencias</h2>
+        <?php
+        // Mostrar mensaje de confirmación o error
+        if (isset($_GET['mensaje'])) {
+            $mensaje = $_GET['mensaje'];
+            if (strpos($mensaje, 'exitosamente') !== false) {
+                echo "<p class='mensaje'>$mensaje</p>";
+            } else {
+                echo "<p class='error'>$mensaje</p>";
+            }
+        }
+        ?>
+
         <table>
             <thead>
                 <tr>
                     <th>Código del Equipo</th>
                     <th>Cédula Tecnico</th>
-                    <!-- <th>Ubicación o area de la empresa</th> -->
                     <th>Fecha de ingreso</th>
                     <th>Tipo de Mantenimiento</th>
                     <th>Fecha de entrega del equipo</th>
                 </tr>
             </thead>
             <tbody id="tabla-incidencias">
-                <!-- Aquí se cargan incidencias -->
+                <?php
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>
+                            <td>{$row['codigo_inventario']}</td>
+                            <td>{$row['cedula_tecnico']}</td>
+                            <td>{$row['fecha_incidencia']}</td>
+                            <td>{$row['tipo_mantenimiento']}</td>
+                            <td>{$row['fecha_reparacion']}</td>
+                          </tr>";
+                }
+
+                ?>
+
             </tbody>
         </table>
 
@@ -102,6 +143,26 @@
         tabla.innerHTML += fila;
       }
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");  // El formulario donde se ingresan las incidencias
+        const fechaIngreso = document.querySelector("input[name='fecha_incidencia']");  // Campo de fecha
+
+        form.addEventListener("submit", function (e) {
+            const fechaSeleccionada = new Date(fechaIngreso.value);
+            const fechaHoy = new Date();
+      
+            // Ajusta la hora de las fechas a 00:00:00 para hacer la comparación sólo por la fecha
+            fechaHoy.setHours(0, 0, 0, 0);
+            
+            // Comparacion fecha seleccionada con actual
+            if (fechaSeleccionada > fechaHoy) {
+                e.preventDefault(); // Evita el envío del formulario
+                alert("La fecha no puede ser posterior a la fecha actual.");
+            }
+        });
+    });
+
   </script>
 
 </body>
