@@ -48,15 +48,16 @@
                <!-- Registrarse-->
                <div class="login-form form-register hidden">
                    <h2> Crear cuenta</h2>
-                   <form action="/register" method="POST">
+                   <form action="agregar_registro.php" method="POST">
+                   <!-- <form action="/register" method="POST"> -->
                         <input type="text" placeholder="Cédula" name = "cedula" required>
                         <input type="text" placeholder="Nombres" name = "nombre" required>
-                        <input type="text" placeholder="Apellidos" name = "apellidos" required>
-                        <input type="text" placeholder="Telefono" name = "telefono" required>
+                        <input type="text" placeholder="Apellidos" name = "apellido" required>
+                        <input type="text" placeholder="Telefono" name = "celular" required>
                         <input type="text" placeholder="Especialidad" name = "especialidad" required>
-                        <input type="text" placeholder="Correo Electrónico" name="correo" required>
+                        <input type="text" placeholder="Correo Electrónico" name="email" required>
                         <input type="text" placeholder="Usuario" name="usuario" required>
-                        <input type="password" placeholder="Contraseña" name="password" required>
+                        <input type="password" placeholder="Contraseña" name="contrasena" required>
                         <button type="submit" class = "login-btn" style = "background-color: green;">Registrarse</button>
 
                        <div class="login-footer">
