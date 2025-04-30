@@ -51,7 +51,8 @@ $result = mysqli_query($conexion, $query);
             <input type="text" name="cedula_tecnico" placeholder="Cedula Tecnico que hará mantenimiento" required>
             <!-- <input type="text" name="ubicacion" placeholder="Ubicación o area de la empresa" required> -->
             <label for="fecha_incidencia_lbl">Fecha de incidencia o ingreso del equipo:</label>
-            <input type="date" name="fecha_incidencia" required>   
+            <input type="date" name="fecha_incidencia" required max="<?php echo date('Y-m-d'); ?>">   
+
             <select name="tipo_mantenimiento" required>
                 <option value="preventivo">Preventivo</option>
                 <option value="correctivo">Correctivo</option>
@@ -142,6 +143,26 @@ $result = mysqli_query($conexion, $query);
         tabla.innerHTML += fila;
       }
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");  // El formulario donde se ingresan las incidencias
+        const fechaIngreso = document.querySelector("input[name='fecha_incidencia']");  // Campo de fecha
+
+        form.addEventListener("submit", function (e) {
+            const fechaSeleccionada = new Date(fechaIngreso.value);
+            const fechaHoy = new Date();
+      
+            // Ajusta la hora de las fechas a 00:00:00 para hacer la comparación sólo por la fecha
+            fechaHoy.setHours(0, 0, 0, 0);
+            
+            // Comparacion fecha seleccionada con actual
+            if (fechaSeleccionada > fechaHoy) {
+                e.preventDefault(); // Evita el envío del formulario
+                alert("La fecha no puede ser posterior a la fecha actual.");
+            }
+        });
+    });
+
   </script>
 
 </body>
