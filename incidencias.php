@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Incidencias - Mantenimiento de Fábrica</title>
-    <link rel="stylesheet" href="estilos.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Incidencias - Mantenimiento de Fábrica</title>
+  <link rel="stylesheet" href="estilos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f6f9;
+      margin-left: 200px;
+    }
+    section h2 {
+      color: #003d80;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <h1>Incidencias</h1>
-    <nav>
-        <a href="index.html">Cerrar Sesión</a>
-    </nav>
-</header>
+  <!-- Menú lateral -->
+  <div class="sidebar">
+    <a href="equipos.php">Equipos</a>
+    <a href="incidencias.php">Incidencias</a>
+    <a href="index.php">Cerrar Sesión</a>
+  </div>
 
 <main>
     <section class="reg-incidencias"> 
@@ -53,10 +63,46 @@
                 <!-- Aquí se cargan incidencias -->
             </tbody>
         </table>
-    </section>
-</main>
 
-<script src="equipos.js"></script>
+
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('form-agregar-incidencias');
+      const tabla = document.getElementById('tabla-incidencias');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const data = new FormData(form);
+        const nuevaIncidencia = {
+          codigo: data.get('codigo_inventario'),
+          cedula: data.get('Cedula_tecnico'),
+          ubicacion: data.get('ubicacion'),
+          fechaIngreso: data.get('fecha_incidencia'),
+          tipo: data.get('tipo_mantenimiento'),
+          fechaEntrega: data.get('fecha_reparacion')
+        };
+        agregarFila(nuevaIncidencia);
+        form.reset();
+      });
+
+      function agregarFila(i) {
+        const fila = `
+          <tr>
+            <td>${i.codigo}</td>
+            <td>${i.cedula}</td>
+            <td>${i.ubicacion}</td>
+            <td>${i.fechaIngreso}</td>
+            <td>${i.tipo}</td>
+            <td>${i.fechaEntrega}</td>
+          </tr>
+        `;
+        tabla.innerHTML += fila;
+      }
+    });
+  </script>
 
 </body>
 </html>
