@@ -10,8 +10,6 @@
    
        <link rel="stylesheet" href="estilos.css">
 
-
-       <link rel="stylesheet" href="estilos.css">
    </head>
    <body>
            
@@ -29,7 +27,9 @@
                <!----formulario de INICIAR SESION-->
                <div class = "login-form form-login">
                    <h2>Bienvenido!</h2>
-                   <form action="/login" method="POST">    
+                
+                   <form action="login.php   " method="POST">
+
                        <input type="text" placeholder="Usuario" name="usuario" required>
                        <input type="password" placeholder="Contraseña" name="password" required>
                        <button type="submit" class="login-btn">Iniciar Sesión</button>
@@ -110,6 +110,13 @@
         });
        </script>
 
+        <?php
+        if (isset($_GET['error']) && $_GET['error'] == 1) {
+            echo "<script>alert('Usuario o contraseña incorrectos.');</script>";
+        }
+        ?>
 
     </body>
+    
+    
     </html>
