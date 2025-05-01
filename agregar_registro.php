@@ -1,6 +1,5 @@
-<?php
-
-include 'ConexionDB/conexion.php';
+ <?php
+include("ConexionDB/conexion.php");
 
 $cedula = $_POST['cedula'];
 $nombre = $_POST['nombre'];
@@ -11,14 +10,27 @@ $email = $_POST['email'];
 $usuario = $_POST['usuario'];
 $contrasena = $_POST['contrasena'];
 
-$sql = "INSERT INTO tecnicos (cedula, nombre, apellido, celular, especialidad, email, usuario, contrasena)
-        VALUES ('$cedula', '$nombre', '$apellido', '$celular', '$especialidad', '$email', '$usuario', '$contrasena')";
+// Verificar si ya existe una cédula o usuario igual
+$verificar = "SELECT * FROM tecnicos WHERE cedula = '$cedula' OR usuario = '$usuario'";
+$resultado = mysqli_query($conexion, $verificar);
 
-if (mysqli_query($conexion, $sql)){
-    echo "Registro exitoso.";
-}else{
-    echo "Error: ". mysqli_error($conexion);
+if ($resultado && mysqli_num_rows($resultado) > 0) {
+    // Ya existe: redirigir con error
+    header("Location: index.php?error=cedula_o_usuario_existente");
+    exit;
 }
 
-mysqli_close($conexion);
+// Insertar nuevo técnico
+$query = "INSERT INTO tecnicos (cedula, nombre, apellido, celular, especialidad, email, usuario, contrasena)
+          VALUES ('$cedula', '$nombre', '$apellido', '$celular', '$especialidad', '$email', '$usuario', '$contrasena')";
+
+if (mysqli_query($conexion, $query)) {
+    // Éxito
+    header("Location: index.php?mensaje=registro_exitoso");
+    exit;
+} else {
+    // Fallo en la inserción
+    header("Location: index.php?error=error_al_guardar");
+    exit;
+}
 ?>

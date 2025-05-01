@@ -65,7 +65,7 @@
                        </div>
                    </form>
 
-               </div>
+                </div>
 
            </div>
 
@@ -91,12 +91,19 @@
             const showLogin = document.getElementById('show-login');
             const loginForm = document.querySelector('.form-login');
             const registerForm = document.querySelector('.form-register');
-
+            
             showRegister.addEventListener('click', function (e) {
                 e.preventDefault();
                 loginForm.classList.add('hidden');
                 registerForm.classList.remove('hidden');
                 console.log('Formulario de registro visible');
+
+                // Validación en tiempo real
+                [inputCedula, inputCelular].forEach(input => {
+                    input.addEventListener('input', function () {
+                        this.value = this.value.replace(/\D/g, '');
+                    });
+                });
 
             });
             showLogin.addEventListener('click', function (e) {
@@ -109,12 +116,75 @@
 
         });
        </script>
+        
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const formRegister = document.querySelector('.form-register form');
+            const inputCedula = formRegister.querySelector('input[name="cedula"]');
+            const inputCelular = formRegister.querySelector('input[name="celular"]');
 
+            // Validación en tiempo real 
+            [inputCedula, inputCelular].forEach(input => {
+                input.addEventListener('input', function () {
+                    this.value = this.value.replace(/\D/g, '');
+                });
+            });
+
+            // Validaciones al enviar
+            formRegister.addEventListener('submit', function(event) {
+                const cedula = inputCedula.value.trim();
+                const celular = inputCelular.value.trim();
+                const email = formRegister.querySelector('input[name="email"]').value.trim();
+                const usuario = formRegister.querySelector('input[name="usuario"]').value.trim();
+                const contrasena = formRegister.querySelector('input[name="contrasena"]').value.trim();
+
+                let errores = [];
+
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    errores.push("El correo electrónico no es válido.");
+                }
+
+                if (usuario.length < 4) {
+                    errores.push("El usuario debe tener al menos 4 caracteres.");
+                }
+
+                if (contrasena === cedula || contrasena === celular) {
+                    errores.push("La contraseña no puede ser igual a la cédula ni al teléfono.");
+                }
+
+                if (errores.length > 0) {
+                    alert(errores.join("\n"));
+                    event.preventDefault();
+                }
+            });
+        });
+        </script>
+
+        <!--para el login-->
         <?php
         if (isset($_GET['error']) && $_GET['error'] == 1) {
             echo "<script>alert('Usuario o contraseña incorrectos.');</script>";
         }
         ?>
+        
+        <!--para el registro-->
+
+        <?php
+        if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'registro_exitoso') {
+            echo "<script>alert('Registro exitoso');</script>";
+        }
+        if (isset($_GET['error']) && $_GET['error'] === 'cedula_o_usuario_existente') {
+            echo "<script>alert('La cédula o el usuario ya están registrados Inicia sesión con tu usuario y contraseña');</script>";
+        }
+        if (isset($_GET['error']) && $_GET['error'] === 'error_al_guardar') {
+            echo "<script>alert('Ocurrió un error al guardar los datos');</script>";
+        }
+        if (isset($_GET['error']) && $_GET['error'] == 1) {
+            echo "<script>alert('Usuario o contraseña incorrectos.');</script>";
+        }
+        ?>
+
 
     </body>
     
