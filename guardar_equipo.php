@@ -1,5 +1,5 @@
 <?php
-include 'ConexionDB/conexion.php'; // Asegúrate de que la ruta sea correcta
+include 'ConexionDB/conexion.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verificamos si es una solicitud POST
     // Recibir los datos del formulario
