@@ -1,6 +1,12 @@
 <?php
+date_default_timezone_set('America/Mexico_City');
+
 // Incluir el archivo de conexión
 include 'ConexionDB/conexion.php';
+
+// obtener fecha para validaciones
+$hoy = date('Y-m-d');
+$hoyLegible = date('d/m/Y'); //formato para mostrar al usuario
 
 // Realizar la consulta para obtener las incidencias
 $query = "SELECT * FROM incidencias";
@@ -63,7 +69,9 @@ $result = mysqli_query($conexion, $query);
                 <?php } ?>
             </select>
             <label for="fecha_incidencia_lbl">Fecha de incidencia o ingreso del equipo:</label>
-            <input type="date" name="fecha_incidencia" id="fecha_incidencia" required max = "<?php echo date('Y-m-d');?>">
+            <input type="date" name="fecha_incidencia" id="fecha_incidencia" required max = "<?php echo $hoy; ?>"
+              title="Fecha maxima permitida: <?php echo $hoyLegible; ?>">
+
             <!-- Lista desplegable tipo_mantenimiento -->
             <label for="tipo_mantenimiento_lbl">Elija el tipo de mantenimiento a realizar:</label>
             <select name="tipo_mantenimiento" required>
@@ -115,9 +123,7 @@ $result = mysqli_query($conexion, $query);
                             <td>{$row['fecha_reparacion']}</td>
                           </tr>";
                 }
-
                 ?>
-
             </tbody>
         </table>
 
@@ -167,30 +173,46 @@ $result = mysqli_query($conexion, $query);
       fechaReparacion.min = fechaIngreso;
     });
   </script>
-  <script>
+  <script> 
     document.addEventListener('DOMContentLoaded', function() {
       const fechaIncidenciaInput = document.getElementById('fecha_incidencia');
       const fechaReparacionInput = document.getElementById('fecha_reparacion');
       const form = document.querySelector('form[action=agregar_incidencia.php"]');
+      
+      const hoy = new Date();
+      // Ajuste de media noche de la fecha
+      hoy.setHours(0, 0, 0, 0);
 
       // Al cambiar la fecha de incidencia
       fechaIncidenciaInput.addEventListener('change', function () {
         const fechaIngreso = this.value;
-        const hoy = new Date().toISOString().split('T')[0];
+        /////////////const hoy = new Date().toISOString().split('T')[0];
 
         if (fechaIngreso > hoy) {
             alert("La fecha de incidencia no puede ser mayor a hoy.");
             this.value = "";
-            fechaReparacionInput.min = "";
+            //////////////fechaReparacionInput.min = "";
+            //////////////fechaIncidenciaInput.max = hoy;
             return;
         }
 
         // Establece el mínimo permitido para reparación
-        fechaReparacionInput.min = fechaIngreso;
+        fechaReparacionInput.min = this.value;
+      });
+      
+      // Validacion al enviar
+      form.addEventListener('submit', function (e) {
+        if (!fechaIncidencia.value || !fechaReparacin.value){
+          alert('Ambasfechas son obligatorias');
+          e.preventDefault();
+          return;
+        }
 
-        // Si ya hay fecha de reparación escrita y es menor, la borra
-        if (fechaReparacionInput.value && fechaReparacionInput.value < fechaIngreso) {
-          fechaReparacionInput.value = "";
+        //Validar que la fecha de reparacion no sea anterior al igreso
+        if (new Date(fechaReparacionInput.vaue) < new Date(fechaIncidenciaInput.value)){
+          alert(La fecha no puede ser menor a la de Ingreso);
+          e.preventDefault();
+          return
         }
       });
 
